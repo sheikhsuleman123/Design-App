@@ -23,7 +23,21 @@ export const DrawerContent = (props) => {
                                 <Caption style={styles.caption}>@itsjoshmathew</Caption>
                             </View>
                         </View>
+                       <View style={styles.row}>
+                            <View style={styles.section}>
+                                <Paragraph style={styles.Paragraph, styles.caption}> 80</Paragraph>
+                                <Caption style={styles.caption}> Following</Caption>
+                            </View>
+                            <View style={styles.section}>
+                                <Paragraph style={styles.Paragraph, styles.caption}> 190</Paragraph>
+                                <Caption style={styles.caption}> Followers</Caption>
+                            </View>
+                       </View>
                      </View>
+                     
+                     <Drawer.Section>
+
+                     </Drawer.Section>
                 </View>
             </DrawerContentScrollView>
 
