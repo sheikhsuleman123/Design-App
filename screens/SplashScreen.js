@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View ,Button ,Image, StyleSheet,TouchableOpacity, Dimensions} from 'react-native';
 
 import LinearGradiant from 'react-native-linear-gradient';
-import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcon from 'react-native-vector-icons/Ionicons';
 
 export class SplashScreen extends Component {
     render() {
@@ -18,14 +18,21 @@ export class SplashScreen extends Component {
                 <View style={styles.footer}>
                     <Text style={styles.title}>Stay connected with everyone!</Text>
                     <Text style={styles.text}>SignIn with account</Text>
+                    <View style={styles.button}> 
                     <TouchableOpacity onPress={alert("pressed")}>
                         <LinearGradiant 
                         colors={['#08d4c4','#01ab9d']}
                         style={styles.signIn}
                         >
                             <Text style={styles.textSign}>Get Started</Text>
+                      <MaterialIcon 
+                      name="chevron-forward-outline"
+                      color="#fff"
+                      size={20}
+                      />
                         </LinearGradiant>
                     </TouchableOpacity>
+                    </View>
                 </View>
                 
             </View>
