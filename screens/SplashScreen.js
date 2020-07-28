@@ -3,28 +3,33 @@ import { Text, View ,Button ,Image, StyleSheet,TouchableOpacity, Dimensions} fro
 
 import LinearGradiant from 'react-native-linear-gradient';
 import MaterialIcon from 'react-native-vector-icons/Ionicons';
+import * as Animatable from 'react-native-animatable';
 
 export class SplashScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                  <Image 
+                  <Animatable.Image
+                    animation="bounceIn" 
                     source={require('../assets/logo.png')}
                     style={styles.logo}
                     resizeMode="stretch"
                     />
                 </View>
-                <View style={styles.footer}>
+                <Animatable.View 
+                style={styles.footer}
+                animation="fadeInUp"
+                >
                     <Text style={styles.title}>Stay connected with everyone!</Text>
                     <Text style={styles.text}>SignIn with account</Text>
                     <View style={styles.button}> 
-                    <TouchableOpacity onPress={alert("pressed")}>
+                    <TouchableOpacity>
                         <LinearGradiant 
                         colors={['#08d4c4','#01ab9d']}
                         style={styles.signIn}
                         >
-                            <Text style={styles.textSign}>Get Started</Text>
+                        <Text style={styles.textSign}>Get Started</Text>
                       <MaterialIcon 
                       name="chevron-forward-outline"
                       color="#fff"
@@ -33,7 +38,7 @@ export class SplashScreen extends Component {
                         </LinearGradiant>
                     </TouchableOpacity>
                     </View>
-                </View>
+                </Animatable.View>
                 
             </View>
         )
