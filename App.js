@@ -15,6 +15,9 @@ import SettingScreen from './screens/SettingScreen';
 import BookmarkScreen from './screens/BookMarkScreen';
 import { DrawerContent } from './screens/DrawerContent';
 
+
+import RootStackScreen from './screens/RootStackScreen';
+
  class App extends Component {
   render() {
 
@@ -22,14 +25,16 @@ import { DrawerContent } from './screens/DrawerContent';
 
     return (
       <NavigationContainer>
-       <Drawer.Navigator drawerContent={props => <DrawerContent {...props} /> }>
+
+      <RootStackScreen />
+
+       {/* <Drawer.Navigator drawerContent={props => <DrawerContent {...props} /> }>
         <Drawer.Screen name="HomeDrawer"   component={MainTabScreen} />
         <Drawer.Screen name="ProfileScreen"   component={ProfileScreen} />
         <Drawer.Screen name="SupportScreen" component={SupportScreen} />
         <Drawer.Screen name="SettingScreen" component={SettingScreen} />
         <Drawer.Screen name="BookmarkScreen" component={BookmarkScreen} />
-       </Drawer.Navigator>
-
+       </Drawer.Navigator> */}
 
     </NavigationContainer>
     )
