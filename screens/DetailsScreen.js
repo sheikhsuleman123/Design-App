@@ -10,7 +10,7 @@ class DetailsScreen extends Component {
 
   render() {
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ flex: 1, alignItems: 'center',justifyContent:'space-around' }}>
         <Text>Details Screen</Text>
         <Button 
         title="Go to Home"
@@ -28,7 +28,7 @@ class DetailsScreen extends Component {
         title="Go to Back"
         onPress={() => this.props.navigation.goBack()}
         />
-          <Button 
+        <Button 
         title="Go to top 1 screen"
         onPress={() => this.props.navigation.popToTop()}
         />
