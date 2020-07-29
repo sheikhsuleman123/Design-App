@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import { Text, View ,Button ,Image, StyleSheet,TouchableOpacity, Dimensions} from 'react-native';
-
+import { Text, View ,Button ,Image, StyleSheet, Dimensions} 
+from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import LinearGradiant from 'react-native-linear-gradient';
 import MaterialIcon from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
 
 export class SplashScreen extends Component {
+    constructor(props){
+        super(props);
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -22,14 +26,14 @@ export class SplashScreen extends Component {
                 animation="fadeInUp"
                 >
                     <Text style={styles.title}>Stay connected with everyone!</Text>
-                    <Text style={styles.text}>SignIn with account</Text>
+                    <Text style={styles.text}>Sign In with account</Text>
                     <View style={styles.button}> 
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate("SignInScreen")} >
+                    <TouchableOpacity  onPress={() => this.props.navigation.navigate('SignInScreen')}  >
                         <LinearGradiant 
                         colors={['#08d4c4','#01ab9d']}
                         style={styles.signIn}
                         >
-                        <Text style={styles.textSign}>Get Started</Text>
+                        <Text style={styles.textSign} >Get Started</Text>
                       <MaterialIcon 
                       name="chevron-forward-outline"
                       color="#fff"

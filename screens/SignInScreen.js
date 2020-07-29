@@ -57,10 +57,14 @@ import Animated from 'react-native-reanimated';
     
     return (
             <View style={styles.container}>
+                <StatusBar backgroundColor="#009387" />
                 <View style={styles.header}> 
                     <Text style={styles.text_header}>Welcome</Text>
                 </View>
-                <View style={styles.footer}> 
+                <Animatable.View 
+                animation="fadeInUp"
+                style={styles.footer}
+                > 
                     <Text style={styles.text_footer}>Email</Text>
                     <View style={styles.action}>
                     <FontAwesome  name="person-outline" color="#05375a" size={20} />
@@ -128,7 +132,7 @@ import Animated from 'react-native-reanimated';
                     </TouchableOpacity>
 
                   </View>
-                </View>
+                </Animatable.View>
             </View>
         )
     }
