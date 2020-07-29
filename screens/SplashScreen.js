@@ -24,7 +24,7 @@ export class SplashScreen extends Component {
                     <Text style={styles.title}>Stay connected with everyone!</Text>
                     <Text style={styles.text}>SignIn with account</Text>
                     <View style={styles.button}> 
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("SignInScreen")} >
                         <LinearGradiant 
                         colors={['#08d4c4','#01ab9d']}
                         style={styles.signIn}
