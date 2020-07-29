@@ -22,32 +22,81 @@ import RootStackScreen from './screens/RootStackScreen';
 const Drawer = createDrawerNavigator();
 
 const App = () => {
-   const [isLoading, setLoading ] = React.useState(true);
-   const [userToken, setUserToken] = React.useState(null);
-   
+  //  const [isLoading, setLoading ] = React.useState(true);
+  //  const [userToken, setUserToken] = React.useState(null);
+  
+ const initialLoginState = {
+    isLoading : true,
+    userToken:null,
+    userName:null
+  };
+
+  loginReducer = (prevState, action) => {
+      switch( action.type ) {
+          case 'RETRIEVE_TOKEN' :
+          return {
+            ...prevState,
+            userToken: action.token, 
+            isLoading : false
+          };
+          case 'LOGIN' :
+          return {
+            ...prevState,
+            userName : action.id,
+            userToken: action.token,
+            isLoading : false
+          };
+          case 'LOGOUT' :
+          return {
+            ...prevState,
+            userName:null,
+            userToken:null,
+            isLoading : false
+          };
+          case 'REGISTER' :
+          return {
+            ...prevState,
+            userName : action.id,
+            userToken: action.token,
+            isLoading : false
+          };
+      }
+  }
+
+  const [loginState, dispatch] = React.useReducer(loginReducer,initialLoginState)
+  
   const authContext = React.useMemo(() => ({
-    signIn : () => {
-      setUserToken('ssg');
-      setLoading(false);
+    signIn : (userName,password) => {
+      let userToken;
+      userToken = null;
+     if( userName == 'admin' && password == 'admin' ){
+       userToken = "admin";
+     }
+     dispatch({ type: 'LOGIN', id:userName, token : userToken });
+      // setUserToken('ssg');
+      // setLoading(false);
     },
     signOut : () => {
-      setUserToken(null);
-      setLoading(false);
+      dispatch({ type: 'LOGOUT' });
+
+      // setUserToken(null);
+      // setLoading(false);
     },
     signUp : () => {
       setUserToken('ssg');
       setLoading(false);
     }
-  }));
-
+  }), []);
 
    useEffect(() => {
      setTimeout(() => {
-       setLoading(false);
+      //  setLoading(false);
+      dispatch({ type: 'REGISTER', token : 'random' });
+
      },1000);
    },[]);
 
-   if( isLoading ) {
+   if( loginState.isLoading ) {
      return(
        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
           <ActivityIndicator size="large" color="#009387" />
@@ -57,8 +106,8 @@ const App = () => {
    return (
     <AuthContext.Provider value={authContext}>
     <NavigationContainer>
-      
-      { userToken !== null ? (
+
+      { loginState.userToken !== null ? (
         
         <Drawer.Navigator drawerContent={props => <DrawerContent {...props} /> }>
         <Drawer.Screen name="HomeDrawer"   component={MainTabScreen} />

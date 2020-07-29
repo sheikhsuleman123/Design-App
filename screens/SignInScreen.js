@@ -60,6 +60,9 @@ import { AuthContext } from '../components/context';
         })
   }
 
+  const loginHandle = (username,password) => {
+        signIn(username,password);
+  }
     
     return (
             <View style={styles.container}>
@@ -126,7 +129,7 @@ import { AuthContext } from '../components/context';
                   <View style={styles.button}>
                       <TouchableOpacity
                       style={styles.signIn}
-                      onPress={() => {signIn()}}
+                      onPress={() => {loginHandle(data.email, data.password)}}
                       >
                     <LinearGradient
                     colors={['#08d4c4','#01ab9d']}  
