@@ -15,7 +15,7 @@ import FontAwesome from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import Animated from 'react-native-reanimated';
 
- const SignInScreen = () => {
+ const SignInScreen = ({navigation}) => {
     
   const [data, setData] = React.useState({
         email : '',
@@ -109,6 +109,25 @@ import Animated from 'react-native-reanimated';
                     /> }
                     </TouchableOpacity>
                   </View>
+                 
+                  <View style={styles.button}>
+                    <LinearGradient
+                    colors={['#08d4c4','#01ab9d']}  
+                     style={styles.signIn} >
+                        <Text style={[styles.textSign]}>Sign In</Text>
+                    </LinearGradient>
+
+                    <TouchableOpacity 
+                    onPress={() => navigation.navigate('SignUpScreen')}  
+                    style={[styles.signIn, {
+                        borderColor:'#009387',
+                        borderWidth:1,
+                        marginTop:15
+                     }]}  >
+                        <Text style={[styles.textSign,{color:'#009387'}]}>Sign Up</Text>
+                    </TouchableOpacity>
+
+                  </View>
                 </View>
             </View>
         )
@@ -182,6 +201,7 @@ const styles = StyleSheet.create({
     },
     textSign: {
         fontSize: 18,
+        color:'#fff',
         fontWeight: 'bold'
     }
   });
