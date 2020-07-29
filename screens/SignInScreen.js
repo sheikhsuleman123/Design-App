@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { 
     View, 
     Text, 
@@ -13,10 +13,34 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
+import Animated from 'react-native-reanimated';
 
-export class SignInScreen extends Component {
-    render() {
-        return (
+ const SignInScreen = () => {
+    
+  const [data, setData] = React.useState({
+        email : '',
+        password:'',
+        checkTextInput : false,
+        secureTextEntry: true
+  });
+
+  const textInputChange = (val) => {
+        if(val.trim().length >= 12 ) {
+            setData({
+                ...data,
+                email:val,
+                checkTextInput:true
+            });
+        } else {
+            setData({
+                ...data,
+                email:val,
+                checkTextInput:false
+            });
+        }
+  }
+    
+    return (
             <View style={styles.container}>
                 <View style={styles.header}> 
                     <Text style={styles.text_header}>Welcome</Text>
@@ -25,19 +49,47 @@ export class SignInScreen extends Component {
                     <Text style={styles.text_footer}>Email</Text>
                     <View style={styles.action}>
                     <FontAwesome  name="person-outline" color="#05375a" size={20} />
-                    <TextInput placeholder="Your Email" autoCapitalize="none" style={styles.textInput}  />
-                    <Feather name="check-circle" color="green" size={20} />
+                    <TextInput 
+                    placeholder="Your Email" 
+                    autoCapitalize="none"
+                    onChangeText={(val) => textInputChange(val)} 
+                    style={styles.textInput}  
+                    />
+                    {data.checkTextInput ?
+                    <Animated.View  animation="bounceIn"  >
+                    <Feather 
+                    name="check-circle" 
+                    color="green" 
+                    size={20} 
+                    />
+                    </Animated.View>
+                    : null }
                   </View>
+                  <Text style={[styles.text_footer,{ marginTop:35 }]}>
+                      Password</Text>
                   <View style={styles.action}>
-                    <Feather  name="lock" color="#05375a" size={20} />
-                    <TextInput placeholder="Your Password" autoCapitalize="none" style={styles.textInput}  />
-                    <Feather name="eye-off" color="green" size={20} />
+                    <Feather 
+                     name="lock"
+                     color="#05375a" 
+                     size={20} 
+                      />
+                    <TextInput 
+                    placeholder="Your Password" 
+                    autoCapitalize="none"
+                    secureTextEntry={true} 
+                    style={styles.textInput}  
+                    />
+                    <Feather 
+                    name="eye-off" 
+                    color="green" 
+                    size={20} 
+                    />
                   </View>
                 </View>
             </View>
         )
     }
-}
+
 
 export default SignInScreen;
  
