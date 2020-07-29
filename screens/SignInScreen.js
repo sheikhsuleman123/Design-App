@@ -15,6 +15,10 @@ import FontAwesome from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import Animated from 'react-native-reanimated';
 
+import { AuthContext } from '../components/context';
+
+
+
  const SignInScreen = ({navigation}) => {
     
   const [data, setData] = React.useState({
@@ -23,6 +27,8 @@ import Animated from 'react-native-reanimated';
         checkTextInput : false,
         secureTextEntry: true
   });
+
+  const { signIn } = React.useContext(AuthContext);
 
   const textInputChange = (val) => {
         if(val.trim().length >= 12 ) {
@@ -114,13 +120,21 @@ import Animated from 'react-native-reanimated';
                     </TouchableOpacity>
                   </View>
                  
+              <TouchableOpacity>
+                <Text style={{color:'#009387',marginTop:15}}>Forget Password ? </Text>
+                </TouchableOpacity>   
                   <View style={styles.button}>
+                      <TouchableOpacity
+                      style={styles.signIn}
+                      onPress={() => {signIn()}}
+                      >
                     <LinearGradient
                     colors={['#08d4c4','#01ab9d']}  
-                     style={styles.signIn} >
+                    style={styles.signIn} >
                         <Text style={[styles.textSign]}>Sign In</Text>
                     </LinearGradient>
 
+                    </TouchableOpacity>
                     <TouchableOpacity 
                     onPress={() => navigation.navigate('SignUpScreen')}  
                     style={[styles.signIn, {

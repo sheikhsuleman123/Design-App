@@ -15,6 +15,7 @@ import SettingScreen from './screens/SettingScreen';
 import BookmarkScreen from './screens/BookMarkScreen';
 import { DrawerContent } from './screens/DrawerContent';
 
+import { AuthContext } from './components/context';
 
 import RootStackScreen from './screens/RootStackScreen';
 
@@ -24,6 +25,22 @@ const App = () => {
    const [isLoading, setLoading ] = React.useState(true);
    const [userToken, setUserToken] = React.useState(null);
    
+  const authContext = React.useMemo(() => ({
+    signIn : () => {
+      setUserToken('ssg');
+      setLoading(false);
+    },
+    signOut : () => {
+      setUserToken(null);
+      setLoading(false);
+    },
+    signUp : () => {
+      setUserToken('ssg');
+      setLoading(false);
+    }
+  }));
+
+
    useEffect(() => {
      setTimeout(() => {
        setLoading(false);
@@ -38,20 +55,23 @@ const App = () => {
      );
    }
    return (
-
+    <AuthContext.Provider value={authContext}>
     <NavigationContainer>
-
-      <RootStackScreen />
-
-       {/* <Drawer.Navigator drawerContent={props => <DrawerContent {...props} /> }>
+      
+      { userToken !== null ? (
+        
+        <Drawer.Navigator drawerContent={props => <DrawerContent {...props} /> }>
         <Drawer.Screen name="HomeDrawer"   component={MainTabScreen} />
         <Drawer.Screen name="ProfileScreen"   component={ProfileScreen} />
         <Drawer.Screen name="SupportScreen" component={SupportScreen} />
         <Drawer.Screen name="SettingScreen" component={SettingScreen} />
         <Drawer.Screen name="BookmarkScreen" component={BookmarkScreen} />
-       </Drawer.Navigator> */}
-
+       </Drawer.Navigator> 
+      )  :
+      <RootStackScreen />
+      }
     </NavigationContainer>
+    </AuthContext.Provider>
     )
   }
 
