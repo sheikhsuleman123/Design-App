@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Text, View, Button } from 'react-native';
+import React, { useEffect } from 'react';
+import { Text, View, Button, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -18,13 +18,28 @@ import { DrawerContent } from './screens/DrawerContent';
 
 import RootStackScreen from './screens/RootStackScreen';
 
- class App extends Component {
-  render() {
+const Drawer = createDrawerNavigator();
 
-    const Drawer = createDrawerNavigator();
+const App = () => {
+   const [isLoading, setLoading ] = React.useState(true);
+   const [userToken, setUserToken] = React.useState(null);
+   
+   useEffect(() => {
+     setTimeout(() => {
+       setLoading(false);
+     },1000);
+   },[]);
 
-    return (
-      <NavigationContainer>
+   if( isLoading ) {
+     return(
+       <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+          <ActivityIndicator size="large" color="#009387" />
+       </View>
+     );
+   }
+   return (
+
+    <NavigationContainer>
 
       <RootStackScreen />
 
@@ -39,6 +54,6 @@ import RootStackScreen from './screens/RootStackScreen';
     </NavigationContainer>
     )
   }
-}
+
 
 export default App;
