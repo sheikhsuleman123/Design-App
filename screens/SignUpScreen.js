@@ -20,8 +20,10 @@ import Animated from 'react-native-reanimated';
   const [data, setData] = React.useState({
         email : '',
         password:'',
+        confirmPassword:'',
         checkTextInput : false,
-        secureTextEntry: true
+        secureTextEntry: true,
+        confirmSecureTextEntry: true,
   });
 
   const textInputChange = (val) => {
@@ -46,14 +48,24 @@ import Animated from 'react-native-reanimated';
                 password: val,
             })
   }
-
+  const handleConfirmPasswordChange = (val) => {
+    setData({
+        ...data,
+        confirmPassword: val,
+    })
+}
   const updateSecureTextEntry = (val) => {
         setData({
             ...data,
             secureTextEntry: !data.secureTextEntry
         })
   }
-
+  const updateConfirmSecureTextEntry = (val) => {
+    setData({
+        ...data,
+        confirmSecureTextEntry: !data.confirmSecureTextEntry
+    })
+}
     
     return (
             <View style={styles.container}>
@@ -124,12 +136,12 @@ import Animated from 'react-native-reanimated';
                     <TextInput 
                     placeholder="Confirm Password" 
                     autoCapitalize="none"
-                    onChangeText={(val) => handlePasswordChange(val)}
-                    secureTextEntry={ data.secureTextEntry ? true : false } 
+                    onChangeText={(val) => handleConfirmPasswordChange(val)}
+                    secureTextEntry={ data.confirmSecureTextEntry ? true : false } 
                     style={styles.textInput}  
                     />
-                    <TouchableOpacity onPress={updateSecureTextEntry}>
-                {data.secureTextEntry ? 
+                    <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
+                {data.confirmSecureTextEntry ? 
                     <Feather 
                     name="eye-off" 
                     color="green" 
@@ -151,7 +163,7 @@ import Animated from 'react-native-reanimated';
                     </LinearGradient>
 
                     <TouchableOpacity 
-                    onPress={() => props.navigation.navigate('SignInScreen')}  
+                    onPress={() => navigation.navigate('SignInScreen')}  
                     style={[styles.signIn, {
                         borderColor:'#009387',
                         borderWidth:1,
