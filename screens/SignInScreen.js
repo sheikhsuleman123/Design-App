@@ -39,6 +39,21 @@ import Animated from 'react-native-reanimated';
             });
         }
   }
+
+  const handlePasswordChange = (val) => {
+            setData({
+                ...data,
+                password: val,
+            })
+  }
+
+  const updateSecureTextEntry = (val) => {
+        setData({
+            ...data,
+            secureTextEntry: !data.secureTextEntry
+        })
+  }
+
     
     return (
             <View style={styles.container}>
@@ -76,14 +91,23 @@ import Animated from 'react-native-reanimated';
                     <TextInput 
                     placeholder="Your Password" 
                     autoCapitalize="none"
-                    secureTextEntry={true} 
+                    onChangeText={(val) => handlePasswordChange(val)}
+                    secureTextEntry={ data.secureTextEntry ? true : false } 
                     style={styles.textInput}  
                     />
+                    <TouchableOpacity onPress={updateSecureTextEntry}>
+                {data.secureTextEntry ? 
                     <Feather 
                     name="eye-off" 
                     color="green" 
                     size={20} 
-                    />
+                    /> :
+                    <Feather 
+                    name="eye" 
+                    color="green" 
+                    size={20} 
+                    /> }
+                    </TouchableOpacity>
                   </View>
                 </View>
             </View>
