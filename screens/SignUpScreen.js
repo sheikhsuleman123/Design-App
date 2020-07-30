@@ -4,6 +4,7 @@ import {
     Text, 
     TouchableOpacity, 
     TextInput,
+    ScrollView,
     Platform,
     StyleSheet ,
     StatusBar,
@@ -175,6 +176,7 @@ import Animated from 'react-native-reanimated';
                   </View>
                 </Animatable.View>
             </View>
+            
         )
     }
 
@@ -193,7 +195,7 @@ const styles = StyleSheet.create({
         paddingBottom: 50
     },
     footer: {
-        flex: 3,
+        flex: 6,
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
@@ -218,7 +220,7 @@ const styles = StyleSheet.create({
     },
     actionError: {
         flexDirection: 'row',
-        marginTop: 10,
+        marginTop: 5,
         borderBottomWidth: 1,
         borderBottomColor: '#FF0000',
         paddingBottom: 5
@@ -235,7 +237,7 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: 'center',
-        marginTop: 50
+        marginTop: 30
     },
     signIn: {
         width: '100%',

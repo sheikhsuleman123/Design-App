@@ -19,6 +19,8 @@ import { AuthContext } from './components/context';
 
 import RootStackScreen from './screens/RootStackScreen';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
 const Drawer = createDrawerNavigator();
 
 const App = () => {
@@ -26,7 +28,7 @@ const App = () => {
   //  const [userToken, setUserToken] = React.useState(null);
   
  const initialLoginState = {
-    isLoading : true,
+    isLoading : false,
     userToken:null,
     userName:null
   };
@@ -66,31 +68,48 @@ const App = () => {
   const [loginState, dispatch] = React.useReducer(loginReducer,initialLoginState)
   
   const authContext = React.useMemo(() => ({
-    signIn : (userName,password) => {
+    signIn : async(userName,password) => {
       let userToken;
       userToken = null;
      if( userName == 'admin' && password == 'admin' ){
-       userToken = "admin";
+       try{
+        userToken = "admin";
+        await AsyncStorage.setItem('userToken', userToken)
+       } catch(e) {
+         console.log(e);
+       }
      }
      dispatch({ type: 'LOGIN', id:userName, token : userToken });
       // setUserToken('ssg');
       // setLoading(false);
     },
-    signOut : () => {
+    signOut : async() => {
+      try{
+        await AsyncStorage.removeItem('userToken');
+       } catch(e) {
+         console.log(e);
+       }
       dispatch({ type: 'LOGOUT' });
 
       // setUserToken(null);
       // setLoading(false);
     },
     signUp : () => {
-      setUserToken('ssg');
-      setLoading(false);
-    }
+      // setUserToken('ssg');
+      // setLoading(false);
+    },
   }), []);
 
    useEffect(() => {
-     setTimeout(() => {
+     setTimeout(async() => {
       //  setLoading(false);
+      let userToken;
+      userToken = null;
+      try{
+        userToken =  await AsyncStorage.getItem('userToken')
+       } catch(e) {
+         console.log(e);
+       }
       dispatch({ type: 'REGISTER', token : 'random' });
 
      },1000);
