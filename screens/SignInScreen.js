@@ -17,7 +17,7 @@ import Animated from 'react-native-reanimated';
 
 import { AuthContext } from '../components/context';
 
-
+import Users from '../modal/user';
 
  const SignInScreen = ({navigation}) => {
     
@@ -73,8 +73,26 @@ import { AuthContext } from '../components/context';
         })
   }
 
-  const loginHandle = (username,password) => {
-        signIn(username,password);
+  const loginHandle = (userName,password) => {
+      
+    const foundUser = Users.filter( item => {
+          return userName == item.email && password == item.password;
+      });
+     
+      if( data.email.length == 0 || data.password.length == 0 ) {
+        Alert.alert('Empty','Username or password can not b empty',[
+            {text:'okay'}
+        ]); 
+        return
+    }
+
+        if( foundUser.length == 0 ) {
+            Alert.alert('Invalid User','Username or password is not valid',[
+                {text:'okay'}
+            ]); 
+            return
+        }
+        signIn(foundUser);
   }
 
   const handleValidUser = (val) => {
@@ -249,7 +267,7 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: 'center',
-        marginTop: 50
+        marginTop: 30
     },
     signIn: {
         width: '100%',

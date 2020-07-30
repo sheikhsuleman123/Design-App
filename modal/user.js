@@ -1,0 +1,23 @@
+export default Users = [
+    {
+        id:1,
+        email:'ali@gmail.com',
+        username:'ali',
+        password:'ali',
+        userToken:'token1'
+    },
+    {
+        id:2,
+        email:'wali@gmail.com',
+        username:'wali',
+        password:'wali',
+        userToken:'token2'
+    },
+    {
+        id:3,
+        email:'sheikh@gmail.com',
+        username:'sheikh',
+        password:'sheikh',
+        userToken:'token3'
+    },
+];
