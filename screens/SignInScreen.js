@@ -24,8 +24,10 @@ import { AuthContext } from '../components/context';
   const [data, setData] = React.useState({
         email : '',
         password:'',
+        secureTextEntry: true,
         checkTextInput : false,
-        secureTextEntry: true
+        isValidUser : true,
+        isValidPassword : true ,
   });
 
   const { signIn } = React.useContext(AuthContext);
@@ -35,23 +37,34 @@ import { AuthContext } from '../components/context';
             setData({
                 ...data,
                 email:val,
-                checkTextInput:true
+                checkTextInput:true,
+                isValidUser:true
             });
         } else {
             setData({
                 ...data,
                 email:val,
-                checkTextInput:false
+                checkTextInput:false,
+                isValidUser:false
             });
         }
   }
 
   const handlePasswordChange = (val) => {
+      if ( val.trim().length >= 8){
             setData({
                 ...data,
                 password: val,
+                isValidPassword:true
             })
-  }
+  } else {
+      setData({
+          ...data,
+          password : val,
+          isValidPassword:false
+      })
+  } 
+}
 
   const updateSecureTextEntry = (val) => {
         setData({
@@ -62,6 +75,20 @@ import { AuthContext } from '../components/context';
 
   const loginHandle = (username,password) => {
         signIn(username,password);
+  }
+
+  const handleValidUser = (val) => {
+        if ( val.trim().length >= 4 ) {
+            setData({
+                ...data,
+                isValidUser:true
+            });
+        } else {
+            setData({
+            ...data,
+            isValidUser:false
+        });
+        }
   }
     
     return (
@@ -81,6 +108,7 @@ import { AuthContext } from '../components/context';
                     placeholder="Your Email" 
                     autoCapitalize="none"
                     onChangeText={(val) => textInputChange(val)} 
+                    onEndEditing={(e) => handleValidUser(e.nativeEvent.text) }
                     style={styles.textInput}  
                     />
                     {data.checkTextInput ?
@@ -93,6 +121,12 @@ import { AuthContext } from '../components/context';
                     </Animated.View>
                     : null }
                   </View>
+                { data.isValidUser ? null :
+                    <Animated.View animation="fadeInLeft" duration={500}>
+                        <Text style={styles.errorMsg}>Email must be 12 characters long.</Text>
+                    </Animated.View>
+                    }
+
                   <Text style={[styles.text_footer,{ marginTop:35 }]}>
                       Password</Text>
                   <View style={styles.action}>
@@ -122,7 +156,11 @@ import { AuthContext } from '../components/context';
                     /> }
                     </TouchableOpacity>
                   </View>
-                 
+                 { data.isValidPassword ? null :
+                  <Animated.View animation="fadeInLeft" duration={500}>
+                        <Text style={styles.errorMsg}>Password must be 8 characters long.</Text>
+                    </Animated.View>
+                    }
               <TouchableOpacity>
                 <Text style={{color:'#009387',marginTop:15}}>Forget Password ? </Text>
                 </TouchableOpacity>   

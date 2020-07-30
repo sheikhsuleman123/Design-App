@@ -155,7 +155,14 @@ import Animated from 'react-native-reanimated';
                     /> }
                     </TouchableOpacity>
                   </View>
-                 
+                  <View style={styles.textPrivate}>
+                <Text style={styles.color_textPrivate}>
+                    By signing up you agree to our
+                </Text>
+                <Text style={[styles.color_textPrivate, {fontWeight: 'bold'}]}>{" "}Terms of service</Text>
+                <Text style={styles.color_textPrivate}>{" "}and</Text>
+                <Text style={[styles.color_textPrivate, {fontWeight: 'bold'}]}>{" "}Privacy policy</Text>
+                </View>
                   <View style={styles.button}>
                     <LinearGradient
                     colors={['#08d4c4','#01ab9d']}  
@@ -192,15 +199,15 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         paddingHorizontal: 20,
-        paddingBottom: 50
+        paddingBottom: 30
     },
     footer: {
-        flex: 6,
+        flex: 9,
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         paddingHorizontal: 20,
-        paddingVertical: 30
+        paddingVertical: 20
     },
     text_header: {
         color: '#fff',
@@ -237,7 +244,7 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: 'center',
-        marginTop: 30
+        marginTop: 20
     },
     signIn: {
         width: '100%',
@@ -250,5 +257,13 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color:'#fff',
         fontWeight: 'bold'
+    },
+    textPrivate: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginTop: 10
+    },
+    color_textPrivate: {
+        color: 'grey'
     }
   });
