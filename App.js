@@ -1,7 +1,17 @@
 import React, { useEffect } from 'react';
 import { Text, View, Button, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { NavigationContainer } from '@react-navigation/native';
+import { 
+  NavigationContainer,
+  DarkTheme as NavigationDarkTheme,
+  DefaultTheme as NavigationDefaultTheme
+ } from '@react-navigation/native';
+
+import { 
+  Provider as PaperProvider ,
+   DarkTheme as PaperDarkTheme,
+  DefaultTheme as PaperDefaultTheme 
+  } from 'react-native-paper';
 
 //Drawer Navigation 
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -27,11 +37,33 @@ const App = () => {
   //  const [isLoading, setLoading ] = React.useState(true);
   //  const [userToken, setUserToken] = React.useState(null);
   
+  const [darkTheme, setdarkTheme] = React.useState(false);
+
  const initialLoginState = {
     isLoading : false,
     userToken:null,
     userName:null
   };
+
+  const CustomDefaultTheme = {
+    ...NavigationDefaultTheme,
+    ...PaperDefaultTheme,
+    colors: {
+      ...NavigationDefaultTheme.colors,
+      ...PaperDefaultTheme.colors
+     }
+    }
+    const CustomDarkTheme = {
+      ...NavigationDarkTheme,
+      ...PaperDarkTheme,
+      colors: {
+        ...NavigationDarkTheme.colors,
+        ...PaperDarkTheme.colors
+       }
+      }
+
+      const theme = darkTheme ? CustomDarkTheme : CustomDefaultTheme ;
+    
 
   loginReducer = (prevState, action) => {
       switch( action.type ) {
@@ -98,6 +130,9 @@ const App = () => {
       // setUserToken('ssg');
       // setLoading(false);
     },
+    toggleTheme:  () => {
+      setdarkTheme( darkTheme =>  !darkTheme);
+  }
   }), []);
 
    useEffect(() => {
@@ -123,8 +158,9 @@ const App = () => {
      );
    }
    return (
+     <PaperProvider theme={theme} >
     <AuthContext.Provider value={authContext}>
-    <NavigationContainer>
+    <NavigationContainer theme={theme}>
 
       { loginState.userToken !== null ? (
         
@@ -140,6 +176,7 @@ const App = () => {
       }
     </NavigationContainer>
     </AuthContext.Provider>
+    </PaperProvider>
     )
   }
 
